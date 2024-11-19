@@ -1,5 +1,3 @@
-// Time is stored in 24-hrs format.
-// Weeks begin with Sunday.
 {
   "timeOffHost": -8,
   "Activities": [
