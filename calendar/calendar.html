@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <title>Calendar Widget</title>
-
     <style>
         #headerDay {
             position: relative;
@@ -17,7 +16,7 @@
         }
 
         #rowContainer {
-            place-content: start center;
+            place-content: start left;
             display: flex;
             flex-wrap: nowrap;
             flex-direction: row;
@@ -26,6 +25,7 @@
 </head>
 
 <body>
+    <p id='DEBUG_HEADER'> if the line below is a number the json load was a success </p>
     <p id='DEBUG_TEXT'> JSON PARSE FAILED. </p>
     <div id="rowContainer">
         <div id="headerDay" style="background-color:blue">SUN</div>
@@ -33,29 +33,44 @@
     </div>
 
     <script>
-        // I FUCKING HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON.
         main();
         async function main(){
-            const response = await fetch("https://cyanhyprpsychic.github.io/calendar/calendar.json")
+			// I FUCKING HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON.
+            const response = await fetch("./calendar.json")
             const inputJSON = await response.json();
             console.log(inputJSON);
             
             var scale = 1; // Widget scale.
             const daysMax = 7;
             const hoursMax = 24;
-      
+
             const d = new Date();
-            let timeOffClient = d.getTimezoneOffset() / 60; // Client timezone relative to UTC in hours.
+			let currentTime = d.getTime() * 1000; // Get current time in Seconds
+            
+			//  Timezone relative to UTC in hours.
+			let timeOffClient = d.getTimezoneOffset() / 60;
             let timeOffHost = inputJSON.timeOffHost;
-            let currentTime = d.getTime() * 1000; // Get current time in Seconds
             
-            // 'for loop'
-              // > json is parsed for an activity
-              // > time is converted for timezone
-              // > do modulo for 24 hours and 7 days
-              // (make sure midnight activities loop over)
-              // > corresponding box is rendered
-            
+			let Activities = inputJSON.Activities;
+			const parent = document.getElementById("rowContainer");
+			for (var i = 0; i < Activities.length; i++) {
+				console.log(Activities[i]);
+				// > time is converted for timezone
+				// > do modulo for 24 hours and 7 days
+				// (make sure midnight activities loop over)
+				// you may have to duplicate midnight activities across two days each
+        
+        
+				// > corresponding box is rendered
+				var child = document.createElement("p");
+				child.id="jscript"+i;
+				child.textContent = Activities[i].Name;
+				child.style.width="50px";
+				child.style.Color="white";
+				child.style.backgroundColor="rgba(255,0,0,0.5)";
+				parent.appendChild(child);
+				//Do something
+			}
             document.getElementById("DEBUG_TEXT").textContent = timeOffHost;
         }
     </script>
