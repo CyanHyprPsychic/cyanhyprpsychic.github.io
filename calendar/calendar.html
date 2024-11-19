@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Calendar Widget</title>
+
+    <style>
+        #headerDay {
+            position: relative;
+            width: 50px;
+            height: 20px;
+            margin: 0px;
+            padding: 30px;
+            text-align: center;
+            align-content: center;
+            color: white;
+        }
+
+        #rowContainer {
+            place-content: start center;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+    <p id='DEBUG_TEXT'> JSON PARSE FAILED. </p>
+    <div id="rowContainer">
+        <div id="headerDay" style="background-color:blue">SUN</div>
+        <div id="headerDay" style="background-color:green">MON</div>
+    </div>
+
+    <script>
+        // I FUCKING HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON. I HATE JSON.
+        main();
+        async function main(){
+            const response = await fetch("https://cyanhyprpsychic.neocities.org/calendar.json")
+            const inputJSON = await response.json();
+            console.log(inputJSON);
+            
+            var scale = 1; // Widget scale.
+            const daysMax = 7;
+            const hoursMax = 24;
+      
+            const d = new Date();
+            let timeOffClient = d.getTimezoneOffset() / 60; // Client timezone relative to UTC in hours.
+            let timeOffHost = inputJSON.timeOffHost;
+            let currentTime = d.getTime() * 1000; // Get current time in Seconds
+            
+            // 'for loop'
+              // > json is parsed for an activity
+              // > time is converted for timezone
+              // > do modulo for 24 hours and 7 days
+              // (make sure midnight activities loop over)
+              // > corresponding box is rendered
+            
+            document.getElementById("DEBUG_TEXT").textContent = timeOffHost;
+        }
+    </script>
+</body>
+</html>

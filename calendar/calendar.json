@@ -1,0 +1,24 @@
+// Time is stored in 24-hrs format.
+// Weeks begin with Sunday.
+{
+  "timeOffHost": -8,
+  "Activities": [
+    {
+      "Name": "Activity 1",
+      "StartTime": 18,
+      "StartDay": 0,
+
+      "EndTime": 7,
+      "EndDay": 1
+    },
+
+    {
+      "Name": "Activity 2",
+      "StartTime": 18,
+      "StartDay": 0,
+
+      "EndTime": 7,
+      "EndDay": 1
+    }
+  ]
+}
